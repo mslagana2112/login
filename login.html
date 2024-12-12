@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <style>
+    /* General styling */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4ca1af, #c4e0e5);
+      overflow: hidden;
+    }
+
+    .background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background-image: url('https://source.unsplash.com/1600x900/?sky,clouds');
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.4);
+    }
+
+    /* Login Container */
+    .login-container {
+      width: 380px;
+      padding: 40px;
+      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      color: #333;
+      transition: transform 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: scale(1.05);
+    }
+
+    .login-container h1 {
+      font-size: 2.2rem;
+      margin-bottom: 20px;
+      font-weight: 600;
+      color: #4ca1af;
+    }
+
+    /* Input Fields */
+    .input-box {
+      margin-bottom: 20px;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      outline: none;
+      background: #f5f5f5;
+      font-size: 1rem;
+      color: #333;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    .input-box input:focus {
+      background: #fff;
+      box-shadow: 0 0 10px rgba(72, 123, 168, 0.6);
+      border: 1px solid #4ca1af;
+    }
+
+    /* Button */
+    .login-btn {
+      margin-top: 20px;
+      padding: 14px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #4ca1af, #c4e0e5);
+      color: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .login-btn:hover {
+      background: linear-gradient(90deg, #c4e0e5, #4ca1af);
+      box-shadow: 0 4px 15px rgba(72, 123, 168, 0.5);
+    }
+
+    /* Error and success messages */
+    .error-message {
+      color: #f44336;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    .success-message {
+      color: #4caf50;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-container form {
+      animation: fadeIn 0.6s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <div class="input-box">
+        <input 
+          type="text" 
+          id="username" 
+          placeholder="Enter your username" 
+          required>
+      </div>
+      <div class="input-box">
+        <input 
+          type="password" 
+          id="password" 
+          placeholder="Enter your password" 
+          required>
+      </div>
+      <button type="submit" class="login-btn">Login</button>
+      <p class="error-message" id="errorMessage" style="display: none;"></p>
+      <p class="success-message" id="successMessage" style="display: none;"></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent form submission
+
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      // Hide error and success messages
+      document.getElementById('errorMessage').style.display = 'none';
+      document.getElementById('successMessage').style.display = 'none';
+
+      // Simple validation logic
+      if (username === '') {
+        document.getElementById('errorMessage').innerText = 'Username is required.';
+        document.getElementById('errorMessage').style.display = 'block';
+        return;
+      }
+
+      if (password === '') {
+        document.getElementById('errorMessage').innerText = 'Password is required.';
+        document.getElementById('errorMessage').style.display = 'block';
+        return;
+      }
+
+      if (password.length < 6) {
+        document.getElementById('errorMessage').innerText = 'Password must be at least 6 characters long.';
+        document.getElementById('errorMessage').style.display = 'block';
+        return;
+      }
+
+      // Mock login check
+      if (username === 'user' && password === 'password123') {
+        document.getElementById('successMessage').innerText = 'Login successful!';
+        document.getElementById('successMessage').style.display = 'block';
+      } else {
+        document.getElementById('errorMessage').innerText = 'Invalid username or password.';
+        document.getElementById('errorMessage').style.display = 'block';
+      }
+    });
+  </script>
+</body>
+</html>
